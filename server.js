@@ -28,7 +28,7 @@ app.use('/api/user',UserRoutes)
 
 //for Grid Data
 app.use('/api/datatable',authJwt(),GridData)//with token 
-app.use('/api/datatable',GridData)// without token
+// app.use('/api/datatable',GridData)// without token
 
 //db
 mongoose
