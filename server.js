@@ -21,8 +21,14 @@ app.use(express.json())
 //routes
 
 const UserRoutes = require("./routes/signUp");
+const GridData = require("./routes/gridDataRoute")
 
 app.use('/api/user',UserRoutes)
+
+
+//for Grid Data
+app.use('/api/datatable',GridData)
+
 
 // app.use(authJwt());
 
