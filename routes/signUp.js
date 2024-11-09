@@ -57,7 +57,6 @@ router.post('/signin', async (req,res)=>{
 
     try {
         const exist = await User.findOne({email:email})
-        console.log(exist.password)
         if(!exist){
            return res.status(400).json({msg:"User not Found Please Create New Account!!"})
         }
