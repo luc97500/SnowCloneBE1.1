@@ -10,6 +10,27 @@ const authJwt = require('../helper/authjwt');
 router.post('/signup' , async (req,res)=>{
     const {name , phone , email,password}= req.body;
     try {
+
+        // Create a new Date object
+        let date = new Date();
+        // Get the current hour, minute, and AM/PM
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12; // Convert 24-hour format to 12-hour format
+        hours = hours ? hours : 12; // If the hour is 0, set it to 12
+        minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero to minutes if less than 10
+
+        // Get the full date in YYYY-MM-DD format
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1; // Months are zero-indexed
+        let day = date.getDate();
+
+        // Format the date and time
+        let formattedDateTime = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day} ${hours}:${minutes} ${ampm}`;
+
+        console.log(formattedDateTime);
+
        const existingUser = await User.findOne({email : email}) 
        if(existingUser){
         return res.status(400).json({msg:"User Already exist!"})
@@ -33,7 +54,8 @@ router.post('/signup' , async (req,res)=>{
         name:name,
         phone:phone,
         email : email,
-        password : hashPass
+        password : hashPass,
+        dateTime : formattedDateTime
     })
 
     await result.save();
